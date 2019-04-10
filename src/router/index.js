@@ -16,7 +16,7 @@ export default new VueRouter({
       component: Home
     },
     {
-      path: "/product",
+      path: "/product/:id",
       name: "ProductDetails",
       component: ProductDetails
     },
