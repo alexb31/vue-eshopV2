@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
         description: "Description of Product 1",
         price: 90,
         isAddedToCart: false,
-        isAddedBtn: false
+        isAddedBtn: false,
+        quantity: 1
       },
       {
         id: 2,
@@ -22,7 +23,8 @@ export const store = new Vuex.Store({
         description: "Description of Product 2",
         price: 45,
         isAddedToCart: false,
-        isAddedBtn: false
+        isAddedBtn: false,
+        quantity: 1
       },
       {
         id: 3,
@@ -31,7 +33,8 @@ export const store = new Vuex.Store({
         description: "Description of Product 3",
         price: 670,
         isAddedToCart: false,
-        isAddedBtn: false
+        isAddedBtn: false,
+        quantity: 1
       },
       {
         id: 4,
@@ -40,7 +43,8 @@ export const store = new Vuex.Store({
         description: "Description of CACA",
         price: 777,
         isAddedToCart: false,
-        isAddedBtn: false
+        isAddedBtn: false,
+        quantity: 1
       }
     ],
     hasSearched: false,
@@ -60,6 +64,9 @@ export const store = new Vuex.Store({
     },
     getProductById: state => id => {
       return state.products.find(product => product.id == id);
+    },
+    quantity: state => {
+      return state.products.quantity;
     }
   },
   mutations: {
@@ -89,6 +96,13 @@ export const store = new Vuex.Store({
     },
     setProductTitleSearched: (state, titleSearched) => {
       state.productTitleSearched = titleSearched;
+    },
+    quantity: (state, data) => {
+      state.products.forEach(el => {
+        if (data.id === el.id) {
+          el.quantity = data.quantity;
+        }
+      });
     }
   }
 });
