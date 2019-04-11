@@ -5,6 +5,9 @@
       <v-layout>
         <v-flex v-for="product in products" :key="product.id" xs4>
           <products :product="product"></products>
+          <router-link
+            :to="{name: 'productDetails', params: {id: product.id, title: product.title,description: product.description,  price: product.price}}"
+          ></router-link>
         </v-flex>
       </v-layout>
     </v-container>
