@@ -12,10 +12,17 @@
                 </v-toolbar>
                 <v-card-text>
                   <v-form>
-                    <v-text-field prepend-icon="person" name="email" label="Email" type="text"></v-text-field>
+                    <v-text-field
+                      prepend-icon="person"
+                      name="email"
+                      v-model="email"
+                      label="Email"
+                      type="text"
+                    ></v-text-field>
                     <v-text-field
                       prepend-icon="lock"
                       name="password"
+                      v-model="password"
                       label="Password"
                       id="password"
                       type="password"
@@ -24,7 +31,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary">Login</v-btn>
+                  <v-btn @click="login" color="primary">Login</v-btn>
                 </v-card-actions>
               </v-card>
             </v-flex>
@@ -37,6 +44,8 @@
 
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "login",
   data() {
@@ -44,6 +53,21 @@ export default {
       email: "",
       password: ""
     };
+  },
+  methods: {
+    login() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(
+          function(user) {
+            alert("You have been chosen");
+          },
+          function(err) {
+            alert("Err, " + err.message);
+          }
+        );
+    }
   }
 };
 </script>

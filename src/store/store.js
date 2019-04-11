@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    products: [{
+    products: [
+      {
         id: 1,
         img: "https://picsum.photos/500/300?",
         title: "Product 1",
