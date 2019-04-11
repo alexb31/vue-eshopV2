@@ -10,6 +10,9 @@
           ></router-link>
         </v-flex>
       </v-layout>
+      <div v-if="products.length === 0">
+        <p>{{noProductLabel}}</p>
+      </div>
     </v-container>
   </v-app>
 </template>
@@ -27,7 +30,8 @@ export default {
   data() {
     return {
       id: "",
-      productsFiltered: []
+      productsFiltered: [],
+      noProductLabel: "No product found"
     };
   },
   computed: {
