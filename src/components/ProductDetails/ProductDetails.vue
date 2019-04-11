@@ -10,8 +10,7 @@
             <p>Price: {{product.price}}&euro;</p>
           </div>
         </v-card-title>
-
-        <v-btn color="success">Add To Cart</v-btn>
+        <v-btn color="success">{{ addToCartLabel }}</v-btn>
       </v-card>
     </v-container>
   </v-app>
