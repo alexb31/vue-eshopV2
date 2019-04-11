@@ -12,7 +12,8 @@ export const store = new Vuex.Store({
         title: "Product 1",
         description: "Description of Product 1",
         price: 90,
-        isAddedToCart: false
+        isAddedToCart: false,
+        isAddedBtn: false
       },
       {
         id: 2,
@@ -20,7 +21,8 @@ export const store = new Vuex.Store({
         title: "Product 2",
         description: "Description of Product 2",
         price: 45,
-        isAddedToCart: false
+        isAddedToCart: false,
+        isAddedBtn: false
       },
       {
         id: 3,
@@ -28,7 +30,8 @@ export const store = new Vuex.Store({
         title: "Product 3",
         description: "Description of Product 3",
         price: 670,
-        isAddedToCart: false
+        isAddedToCart: false,
+        isAddedBtn: false
       },
       {
         id: 4,
@@ -36,7 +39,8 @@ export const store = new Vuex.Store({
         title: "CACA",
         description: "Description of CACA",
         price: 777,
-        isAddedToCart: false
+        isAddedToCart: false,
+        isAddedBtn: false
       }
     ],
     hasSearched: false,
@@ -63,6 +67,20 @@ export const store = new Vuex.Store({
       state.products.forEach(el => {
         if (id === el.id) {
           el.isAddedToCart = true;
+        }
+      });
+    },
+    setAddedBtn: (state, data) => {
+      state.products.forEach(el => {
+        if (data.id === el.id) {
+          el.isAddedBtn = data.status;
+        }
+      });
+    },
+    removeFromCart: (state, id) => {
+      state.products.forEach(el => {
+        if (id === el.id) {
+          el.isAddedToCart = false;
         }
       });
     },

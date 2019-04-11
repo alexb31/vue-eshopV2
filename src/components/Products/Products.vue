@@ -6,7 +6,16 @@
       <p class="white--text">Price: {{ product.price }}e</p>
     </router-link>
     <p>{{product.isAddedToCart}}</p>
-    <v-btn color="success" @click="addToCart(product.id)">{{ addToCartLabel }}</v-btn>
+    <v-btn
+      color="success"
+      v-if="!product.isAddedToCart"
+      @click="addToCart(product.id)"
+    >{{ addToCartLabel }}</v-btn>
+    <v-btn
+      color="error"
+      v-if="product.isAddedToCart"
+      @click="removeFromCart(product.id, false)"
+    >{{removeFromCartLabel}}</v-btn>
   </v-card>
 </template>
 
@@ -16,7 +25,8 @@ export default {
   props: ["product"],
   data() {
     return {
-      addToCartLabel: "Add to cart"
+      addToCartLabel: "Add to cart",
+      removeFromCartLabel: "Remove From cart"
     };
   },
   methods: {
@@ -27,6 +37,15 @@ export default {
       };
       console.log(data);
       this.$store.commit("addToCart", id);
+      this.$store.commit("setAddedBtn", id);
+    },
+    removeFromCart(id) {
+      let data = {
+        id: id,
+        status: false
+      };
+      this.$store.commit("removeFromCart", id);
+      this.$store.commit("setAddedBtn", id);
     }
   }
 };
