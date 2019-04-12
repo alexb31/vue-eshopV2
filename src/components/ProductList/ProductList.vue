@@ -2,7 +2,7 @@
   <v-app id="productList">
     <v-container grid-list-md text-xs-center>
       <p>Number of Products : {{total}}</p>
-      <v-layout>
+      <v-layout wrap>
         <v-flex v-for="product in products" :key="product.id" xs4>
           <products :product="product"></products>
           <router-link

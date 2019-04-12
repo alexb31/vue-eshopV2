@@ -1,27 +1,32 @@
 <template>
-  <v-card dark color="primary">
+  <v-card text-xs-center>
     <router-link :to="'/product/' + product.id">
-      <v-img to="/product" :src="product.img"/>
-      <h2 class="white--text">{{ product.title }}</h2>
-      <p class="white--text">Price: {{ product.price }}&euro;</p>
+      <v-img aspect-ratio="1" to="/product" :src="product.img"/>
+      <div class="black--text">
+        <h2>{{ product.title }}</h2>
+        <div>Price: {{ product.price }}&euro;</div>
+      </div>
     </router-link>
-    <p>{{product.isAddedToCart}}</p>
+
     <v-select
       @change="onSelectQuantity(product.id)"
       label="Quantity"
       v-model="selected"
       :items="quantityArray"
     ></v-select>
-    <v-btn
-      color="success"
-      v-if="!product.isAddedToCart"
-      @click="addToCart(product.id)"
-    >{{ addToCartLabel }}</v-btn>
-    <v-btn
-      color="error"
-      v-if="product.isAddedToCart"
-      @click="removeFromCart(product.id, false)"
-    >{{removeFromCartLabel}}</v-btn>
+
+    <v-card-actions class="justify-center">
+      <v-btn
+        color="success"
+        v-if="!product.isAddedToCart"
+        @click="addToCart(product.id)"
+      >{{ addToCartLabel }}</v-btn>
+      <v-btn
+        color="error"
+        v-if="product.isAddedToCart"
+        @click="removeFromCart(product.id, false)"
+      >{{removeFromCartLabel}}</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 

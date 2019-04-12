@@ -8,6 +8,12 @@
             <h3 class="headline mb-0">{{ product.title }}</h3>
             <div>{{ product.description }}</div>
             <p>Price: {{product.price}}&euro;</p>
+            <v-select
+              @change="onSelectQuantity(product.id)"
+              label="Quantity"
+              v-model="selected"
+              :items="quantityArray"
+            ></v-select>
           </div>
         </v-card-title>
         <v-btn
@@ -35,7 +41,9 @@ export default {
     return {
       product: {},
       addToCartLabel: "Add to cart",
-      removeFromCartLabel: "Remove From cart"
+      removeFromCartLabel: "Remove From cart",
+      selected: 1,
+      quantityArray: []
     };
   },
   methods: {
@@ -56,9 +64,20 @@ export default {
       console.log(data);
       this.$store.commit("removeFromCart", id);
       this.$store.commit("setAddedBtn", data);
+    },
+    onSelectQuantity(id) {
+      let data = {
+        id: id,
+        quantity: this.selected
+      };
+      this.$store.commit("quantity", data);
     }
   },
   mounted() {
+    for (let i = 1; i <= 20; i++) {
+      this.quantityArray.push(i);
+    }
+
     this.product = this.$store.getters.getProductById(this.$route.params.id);
     console.log(this.product);
   }

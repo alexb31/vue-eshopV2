@@ -1,18 +1,27 @@
 <template>
-  <v-app id="productList">
+  <v-container id="productList">
     <v-container grid-list-md text-xs-center>
       <v-layout>
         <div class="box" v-for="product in products" :key="product.id">
+          <v-btn color="error">Remove Product</v-btn>
           <p>{{product.title}} {{product.quantity > 0 ? ` - Quantity: ${product.quantity}` : ''}}</p>
         </div>
-        <strong>Total: {{priceTotal}}</strong>
+        <div v-if="products.length === 0">
+          <p>{{cartEmptyLabel}}</p>
+        </div>
+        <strong>Total: {{priceTotal}}&euro;</strong>
       </v-layout>
     </v-container>
-  </v-app>
+  </v-container>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      cartEmptyLabel: "Your cart is empty"
+    };
+  },
   computed: {
     products() {
       return this.$store.getters.productsAdded;
