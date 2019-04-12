@@ -3,7 +3,7 @@
     <v-container grid-list-md text-xs-center>
       <v-layout>
         <div class="box" v-for="product in products" :key="product.id">
-          <v-btn color="error">Remove Product</v-btn>
+          <v-btn @click="removeFromCart(product.id, false)" color="error">Remove Product</v-btn>
           <p>{{product.title}} {{product.quantity > 0 ? ` - Quantity: ${product.quantity}` : ''}}</p>
         </div>
         <div v-if="products.length === 0">
@@ -43,6 +43,17 @@ export default {
 
       finalPrice = pricesArray.reduce((a, b) => a + b, 0);
       return finalPrice;
+    }
+  },
+  methods: {
+    removeFromCart(id) {
+      let data = {
+        id: id,
+        status: false
+      };
+      console.log(data);
+      this.$store.commit("removeFromCart", id);
+      this.$store.commit("setAddedBtn", data);
     }
   }
 };
