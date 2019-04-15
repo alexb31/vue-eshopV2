@@ -15,6 +15,24 @@
       :items="quantityArray"
     ></v-select>
 
+    <div class="ratings">
+      <font-awesome-icon v-if="product.ratings === 1" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 2" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 2" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 3" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 3" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 3" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 4" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 4" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 4" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 4" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 5" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 5" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 5" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 5" icon="star" class="icon alt"/>
+      <font-awesome-icon v-if="product.ratings === 5" icon="star" class="icon alt"/>
+    </div>
+
     <v-card-actions class="justify-center">
       <v-btn
         color="success"
@@ -31,6 +49,8 @@
 </template>
 
 <script>
+import FontAwesomeIcon from "@fortawesome/vue-fontawesome";
+
 export default {
   name: "products",
   props: ["product"],

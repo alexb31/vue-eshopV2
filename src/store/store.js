@@ -14,7 +14,8 @@ export const store = new Vuex.Store({
         price: 90,
         isAddedToCart: false,
         isAddedBtn: false,
-        quantity: 1
+        quantity: 1,
+        ratings: 2
       },
       {
         id: 2,
@@ -24,7 +25,8 @@ export const store = new Vuex.Store({
         price: 45,
         isAddedToCart: false,
         isAddedBtn: false,
-        quantity: 1
+        quantity: 1,
+        ratings: 5
       },
       {
         id: 3,
@@ -34,17 +36,19 @@ export const store = new Vuex.Store({
         price: 670,
         isAddedToCart: false,
         isAddedBtn: false,
-        quantity: 1
+        quantity: 1,
+        ratings: 1
       },
       {
         id: 4,
         img: "https://picsum.photos/500/300?",
-        title: "CACA",
-        description: "Description of CACA",
+        title: "Tour Eiffel",
+        description: "Description of Tour Eiffel",
         price: 777,
         isAddedToCart: false,
         isAddedBtn: false,
-        quantity: 1
+        quantity: 1,
+        ratings: 4
       }
     ],
     hasSearched: false,

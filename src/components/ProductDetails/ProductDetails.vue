@@ -1,32 +1,28 @@
 <template>
   <v-app id="productDetail">
     <v-container grid-list-md text-xs-center>
-      <v-card>
-        <v-img :src="product.img" aspect-ratio="2.75"></v-img>
-        <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">{{ product.title }}</h3>
-            <div>{{ product.description }}</div>
-            <p>Price: {{product.price}}&euro;</p>
-            <v-select
-              @change="onSelectQuantity(product.id)"
-              label="Quantity"
-              v-model="selected"
-              :items="quantityArray"
-            ></v-select>
-          </div>
-        </v-card-title>
-        <v-btn
-          color="success"
-          v-if="!product.isAddedToCart"
-          @click="addToCart(product.id)"
-        >{{ addToCartLabel }}</v-btn>
-        <v-btn
-          color="error"
-          v-if="product.isAddedToCart"
-          @click="removeFromCart(product.id, false)"
-        >{{ removeFromCartLabel }}</v-btn>
-      </v-card>
+      <v-img :src="product.img" aspect-ratio="2.75"></v-img>
+      <div>
+        <h3 class="headline mb-0">{{ product.title }}</h3>
+        <div>{{ product.description }}</div>
+        <p>Price: {{product.price}}&euro;</p>
+        <v-select
+          @change="onSelectQuantity(product.id)"
+          label="Quantity"
+          v-model="selected"
+          :items="quantityArray"
+        ></v-select>
+      </div>
+      <v-btn
+        color="success"
+        v-if="!product.isAddedToCart"
+        @click="addToCart(product.id)"
+      >{{ addToCartLabel }}</v-btn>
+      <v-btn
+        color="error"
+        v-if="product.isAddedToCart"
+        @click="removeFromCart(product.id, false)"
+      >{{ removeFromCartLabel }}</v-btn>
     </v-container>
   </v-app>
 </template>
