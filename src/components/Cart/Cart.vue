@@ -3,14 +3,18 @@
     <v-container grid-list-md text-xs-center>
       <v-layout>
         <div class="box" v-for="product in products" :key="product.id">
-          <v-btn @click="removeFromCart(product.id, false)" color="error">Remove Product</v-btn>
+          <router-link :to="'/product/' + product.id">
+            <v-img :src="product.img" aspect-ratio="2.75"></v-img>
+          </router-link>
           <p>{{product.title}} {{product.quantity > 0 ? ` - Quantity: ${product.quantity}` : ''}}</p>
+          <p>{{product.price * product.quantity}}&euro;</p>
+          <v-btn @click="removeFromCart(product.id, false)" color="error">{{removeProductLabel}}</v-btn>
         </div>
         <div v-if="products.length === 0">
           <p>{{cartEmptyLabel}}</p>
         </div>
-        <strong>Total: {{priceTotal}}&euro;</strong>
       </v-layout>
+      <strong>Total: {{priceTotal}}&euro;</strong>
     </v-container>
   </v-container>
 </template>
@@ -19,7 +23,8 @@
 export default {
   data() {
     return {
-      cartEmptyLabel: "Your cart is empty"
+      cartEmptyLabel: "Your cart is empty",
+      removeProductLabel: "Remove The Product"
     };
   },
   computed: {
@@ -27,7 +32,6 @@ export default {
       return this.$store.getters.productsAdded;
     },
     priceTotal() {
-      console.log("INIT");
       let totalProducts = this.products.length;
       let productsAdded = this.$store.getters.productsAdded;
       let pricesArray = [];
@@ -42,6 +46,7 @@ export default {
       });
 
       finalPrice = pricesArray.reduce((a, b) => a + b, 0);
+      console.log(finalPrice);
       return finalPrice;
     }
   },
