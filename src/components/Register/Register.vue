@@ -31,7 +31,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn @click="signUp" color="secondary">Register</v-btn>
+                  <v-btn @click.prevent="signUp" :disabled="isLoading" color="secondary">Register</v-btn>
                 </v-card-actions>
               </v-card>
             </v-flex>
@@ -45,28 +45,37 @@
 
 <script>
 import firebase from "firebase";
+import { mapActions } from "vuex";
+import { error } from "util";
 
 export default {
   name: "signUp",
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      isLoading: false
     };
   },
   methods: {
+    ...mapActions(["registerWithEmail"]),
     signUp() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          function(user) {
-            alert("Account Created !");
-          },
-          function(err) {
-            alert("Oops. " + err.message);
-          }
-        );
+      this.isLoading = true;
+      let data = {
+        email: this.email,
+        password: this.password
+      };
+      this.registerWithEmail(data)
+        .then(user => {
+          alert("Account Created :) !");
+          this.$router.push({ name: "Home" });
+        })
+        .catch(error => {
+          alert("Oops. " + err.message);
+        })
+        .then(() => {
+          this.isLoading = false;
+        });
     }
   }
 };

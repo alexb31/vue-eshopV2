@@ -6,13 +6,21 @@
       <v-spacer class="hidden-sm-and-down"></v-spacer>
       <!-- <search></search> -->
       <!-- <v-btn color="success" class="hidden-sm-and-down" to="/cart">Cart({{numProductsAdded}})</v-btn> -->
-      <v-btn flat class="hidden-sm-and-down" to="/login">Login</v-btn>
-      <v-btn flat class="hidden-sm-and-down" to="/register">Register</v-btn>
+      <div v-if="!isLoggedIn">
+        <v-btn flat class="hidden-sm-and-down" to="/login">Login</v-btn>
+        <v-btn flat class="hidden-sm-and-down" to="/register">Register</v-btn>
+      </div>
+      <div v-else>
+        <v-btn flat class="hidden-sm-and-down" to="/register">
+          <a @click="logout">Logout {{ userEmail }}</a>
+        </v-btn>
+      </div>
     </v-toolbar>
   </span>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import Search from "../Search/Search";
 
 export default {
@@ -23,6 +31,16 @@ export default {
     return {
       appTitle: "Vue Shop"
     };
+  },
+  computed: {
+    ...mapGetters(["currentUser", "isLoggedIn"]),
+    userEmail() {
+      return this.isLoggedIn ? this.currentUser.email : "";
+      console.log(this.isLoggedIn);
+    }
+  },
+  methods: {
+    ...mapActions(["logout"])
   }
   // computed: {
   //   numProductsAdded() {

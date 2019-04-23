@@ -31,7 +31,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn @click="login" color="primary">Login</v-btn>
+                  <v-btn @click.prevent="login" color="primary">Login</v-btn>
                 </v-card-actions>
               </v-card>
             </v-flex>
@@ -44,38 +44,33 @@
 
 
 <script>
-import firebase from "firebase";
+import { mapActions } from "vuex";
 
 export default {
   name: "login",
   data() {
     return {
       email: "",
-      password: "",
-      isFormSuccess: false
+      password: ""
     };
   },
   methods: {
+    ...mapActions(["loginWithEmail"]),
     login() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(
-          function(user) {
-            console.log("You have been chosen");
-            const userLogged = user;
-            console.log(userLogged);
-          },
-          function(err) {
-            alert("Err, " + err.message);
-          }
-        );
-      console.log(this.email, this.password);
-
-      if (this.email && this.password) {
-        this.isFormSuccess = true;
-      }
-      console.log(this.isFormSuccess);
+      let data = {
+        email: this.email,
+        password: this.password
+      };
+      this.loginWithEmail(data)
+        .then(user => {
+          console.log("Success :D !!");
+          const currentUser = user;
+          console.log(currentUser);
+          this.$router.push({ name: "Home" });
+        })
+        .catch(error => {
+          alert("Err, " + err.message);
+        });
     }
   }
 };
