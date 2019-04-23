@@ -5,12 +5,12 @@ import ProductDetails from "@/components/ProductDetails/ProductDetails";
 import Login from "@/components/Login/Login";
 import Register from "@/components/Register/Register";
 import Cart from "@/components/Cart/Cart";
+import Checkout from "@/components/Checkout/checkout";
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "Home",
       component: Home
@@ -34,6 +34,14 @@ export default new VueRouter({
       path: "/cart",
       name: "Cart",
       component: Cart
+    },
+    {
+      path: "/checkout",
+      name: "Checkout",
+      component: Checkout,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });

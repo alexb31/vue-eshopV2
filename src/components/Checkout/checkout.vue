@@ -1,3 +1,5 @@
 <template>
-  <p>CHECKOUT</p>
+  <v-container>
+    <p>CHECKOUT</p>
+  </v-container>
 </template>

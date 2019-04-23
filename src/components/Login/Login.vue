@@ -51,7 +51,8 @@ export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      isFormSuccess: false
     };
   },
   methods: {
@@ -61,12 +62,20 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(
           function(user) {
-            alert("You have been chosen");
+            console.log("You have been chosen");
+            const userLogged = user;
+            console.log(userLogged);
           },
           function(err) {
             alert("Err, " + err.message);
           }
         );
+      console.log(this.email, this.password);
+
+      if (this.email && this.password) {
+        this.isFormSuccess = true;
+      }
+      console.log(this.isFormSuccess);
     }
   }
 };

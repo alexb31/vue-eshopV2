@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import Header from "./components/Header/Header";
 
 export default {
@@ -19,6 +20,12 @@ export default {
     return {
       //
     };
+  },
+  methods: {
+    ...mapActions(["listenToProductList"])
+  },
+  created() {
+    this.listenToProductList();
   }
 };
 </script>

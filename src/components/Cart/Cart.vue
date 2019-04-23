@@ -13,8 +13,11 @@
         <div v-if="products.length === 0">
           <p>{{cartEmptyLabel}}</p>
         </div>
+        <div v-else>
+          <div>Total: {{priceTotal}}&euro;</div>
+          <v-btn color="info" to="/checkout">{{checkoutLabel}}</v-btn>
+        </div>
       </v-layout>
-      <strong>Total: {{priceTotal}}&euro;</strong>
     </v-container>
   </v-container>
 </template>
@@ -24,7 +27,8 @@ export default {
   data() {
     return {
       cartEmptyLabel: "Your cart is empty",
-      removeProductLabel: "Remove The Product"
+      removeProductLabel: "Remove The Product",
+      checkoutLabel: "Checkout"
     };
   },
   computed: {
