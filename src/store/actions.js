@@ -3,6 +3,21 @@ import {
   firebaseAuth
 } from '../firebase';
 
+export const updateCart = ({
+  commit
+}, {
+  product,
+  quantity,
+  isAdd
+}) => {
+  commit('UPDATE_CART', {
+    product,
+    quantity,
+    isAdd
+  });
+
+}
+
 export function listenToProductList({
   commit
 }) {

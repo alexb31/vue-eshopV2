@@ -5,7 +5,7 @@
       <v-btn flat to="/">{{appTitle}}</v-btn>
       <v-spacer class="hidden-sm-and-down"></v-spacer>
       <!-- <search></search> -->
-      <!-- <v-btn color="success" class="hidden-sm-and-down" to="/cart">Cart({{numProductsAdded}})</v-btn> -->
+      <v-btn color="success" class="hidden-sm-and-down" to="/cart">Cart({{numProductsAdded}})</v-btn>
       <div v-if="!isLoggedIn">
         <v-btn flat class="hidden-sm-and-down" to="/login">Login</v-btn>
         <v-btn flat class="hidden-sm-and-down" to="/register">Register</v-btn>
@@ -33,10 +33,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["currentUser", "isLoggedIn"]),
+    ...mapGetters(["currentUser", "isLoggedIn", "cartItemList"]),
     userEmail() {
       return this.isLoggedIn ? this.currentUser.email : "";
       console.log(this.isLoggedIn);
+    },
+    numProductsAdded() {
+      console.log(this.cartItemList);
+      return this.cartItemList.reduce((total, product) => {
+        total += product.quantity;
+        return total;
+      }, 0);
     }
   },
   methods: {

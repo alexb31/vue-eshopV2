@@ -60,6 +60,17 @@ export default {
       }
       return {};
     }
+  },
+  methods: {
+    ...mapActions(["updateCart"]),
+    addToCart() {
+      let data = {
+        product: Object.assign({}, this.product),
+        isAdd: true,
+        quantity: 1
+      };
+      this.updateCart(data);
+    }
   }
 };
 </script>

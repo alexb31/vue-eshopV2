@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import FontAwesomeIcon from "@fortawesome/vue-fontawesome";
 
 export default {
@@ -75,14 +76,15 @@ export default {
     }
   },
   methods: {
-    addToCart(id) {
+    ...mapActions(["updateCart"]),
+    addToCart() {
       let data = {
-        id: id,
-        status: true
+        product: Object.assign({}, this.product),
+        isAdd: true,
+        quantity: 1
       };
       console.log(data);
-      this.$store.commit("addToCart", id);
-      this.$store.commit("setAddedBtn", id);
+      this.updateCart(data);
     },
     removeFromCart(id) {
       let data = {
@@ -95,7 +97,7 @@ export default {
     onSelectQuantity(id) {
       let data = {
         id: id,
-        quantity: this.selected
+        quantity: 1
       };
       this.$store.commit("quantity", data);
     }
