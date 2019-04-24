@@ -10,12 +10,11 @@
           <h3 class="headline mb-0">{{ product.title }}</h3>
           <div>{{ product.description }}</div>
           <p>Price: {{product.price}}&euro;</p>
-          <v-select
-            @change="onSelectQuantity(product.id)"
-            label="Quantity"
-            v-model="selected"
-            :items="quantityArray"
-          ></v-select>
+          <div class="quantity">
+            <v-btn @click="increment()">+</v-btn>
+            <p>{{selected}}</p>
+            <v-btn @click="decrement()">-</v-btn>
+          </div>
         </div>
         <v-btn
           color="success"
@@ -42,8 +41,7 @@ export default {
     return {
       addToCartLabel: "Add to cart",
       removeFromCartLabel: "Remove From cart",
-      selected: 1,
-      quantityArray: []
+      selected: 1
     };
   },
   computed: {
@@ -67,9 +65,25 @@ export default {
       let data = {
         product: Object.assign({}, this.product),
         isAdd: true,
-        quantity: 1
+        quantity: this.selected
       };
       this.updateCart(data);
+    },
+    increment() {
+      console.log(this.product);
+      if (this.selected >= this.product.quantityMax) {
+        console.log("Can't carry more");
+        this.selected = this.product.quantityMax;
+      } else {
+        return this.selected++;
+      }
+    },
+    decrement() {
+      if (this.selected <= 1) {
+        this.selected = 1;
+      } else {
+        return this.selected--;
+      }
     }
   }
 };
