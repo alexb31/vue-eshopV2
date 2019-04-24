@@ -8,13 +8,6 @@
       </div>
     </router-link>
 
-    <v-select
-      @change="onSelectQuantity(product.id)"
-      label="Quantity"
-      v-model="selected"
-      :items="quantityArray"
-    ></v-select>
-
     <div class="ratings">
       <font-awesome-icon v-if="product.ratings === 1" icon="star" class="icon alt"/>
       <font-awesome-icon v-if="product.ratings === 2" icon="star" class="icon alt"/>

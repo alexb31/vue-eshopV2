@@ -5,17 +5,25 @@ const state = {
 const mutations = {
   UPDATE_CART(state, {
     product,
-    quantity
+    quantity,
+    quantityMax
   }) {
     state.cartItemList.push({
       ...product,
-      quantity
+      quantity,
+      quantityMax
     })
   },
   SET_CART(state, productList) {
     if (productList) {
       state.cartItemList = productList;
     }
+  },
+  REMOVE_CART_ITEM(state, product) {
+    // console.log(state.cartItemList.find(element));
+    const record = state.cartItemList.find(element => element.id == product.id);
+    console.log(record)
+    state.cartItemList.splice(state.cartItemList.indexOf(record), 1);
   }
 }
 

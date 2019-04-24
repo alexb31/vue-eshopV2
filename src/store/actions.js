@@ -8,14 +8,26 @@ export const updateCart = ({
 }, {
   product,
   quantity,
+  quantityMax,
   isAdd
 }) => {
   commit('UPDATE_CART', {
     product,
     quantity,
+    quantityMax,
     isAdd
   });
 
+}
+
+export const removeItemInCart = ({
+  commit
+}, {
+  product
+}) => {
+  commit('REMOVE_CART_ITEM', {
+    product
+  })
 }
 
 export function listenToProductList({

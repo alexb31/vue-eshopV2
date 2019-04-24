@@ -10,9 +10,10 @@
           <h3 class="headline mb-0">{{ product.title }}</h3>
           <div>{{ product.description }}</div>
           <p>Price: {{product.price}}&euro;</p>
+          <p>Quantity: {{product.quantityMax}}</p>
           <div class="quantity">
             <v-btn @click="increment()">+</v-btn>
-            <p>{{selected}}</p>
+            <p>{{product.quantity}}</p>
             <v-btn @click="decrement()">-</v-btn>
           </div>
         </div>
@@ -65,24 +66,33 @@ export default {
       let data = {
         product: Object.assign({}, this.product),
         isAdd: true,
-        quantity: this.selected
+        quantity: this.product.quantity
       };
-      this.updateCart(data);
+      const quantityMax = (this.product.quantityMax -= this.product.quantity);
+      if (this.product.quantityMax < 0) {
+        this.product.quantityMax = 0;
+      } else if (this.product.quantity > this.product.quantityMax) {
+        this.updateCart(data);
+        this.product.quantity = this.product.quantityMax;
+      } else {
+        this.updateCart(data);
+        return quantityMax;
+      }
     },
     increment() {
       console.log(this.product);
-      if (this.selected >= this.product.quantityMax) {
+      if (this.product.quantity >= this.product.quantityMax) {
         console.log("Can't carry more");
-        this.selected = this.product.quantityMax;
+        this.product.quantity = this.product.quantityMax;
       } else {
-        return this.selected++;
+        return this.product.quantity++;
       }
     },
     decrement() {
-      if (this.selected <= 1) {
-        this.selected = 1;
+      if (this.product.quantity <= 1) {
+        this.product.quantity = 1;
       } else {
-        return this.selected--;
+        return this.product.quantity--;
       }
     }
   }
