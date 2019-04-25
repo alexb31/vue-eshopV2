@@ -36,10 +36,8 @@ export default {
     ...mapGetters(["currentUser", "isLoggedIn", "cartItemList"]),
     userEmail() {
       return this.isLoggedIn ? this.currentUser.email : "";
-      console.log(this.isLoggedIn);
     },
     numProductsAdded() {
-      console.log(this.cartItemList);
       return this.cartItemList.reduce((total, product) => {
         total += product.quantity;
         return total;

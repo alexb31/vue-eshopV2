@@ -27,11 +27,7 @@
     </div>
 
     <v-card-actions class="justify-center">
-      <v-btn
-        color="success"
-        v-if="!product.isAddedToCart"
-        @click="addToCart(product.id)"
-      >{{ addToCartLabel }}</v-btn>
+      <v-btn color="success" v-if="!product.isAddedToCart" @click="addToCart">{{ addToCartLabel }}</v-btn>
       <v-btn
         color="error"
         v-if="product.isAddedToCart"
@@ -60,12 +56,8 @@ export default {
     for (let i = 1; i <= 20; i++) {
       this.quantityArray.push(i);
     }
-
-    console.log(this.$props.product.quantity);
-
     if (this.$props.product.quantity > 1) {
       this.selected = this.$props.product.quantity;
-      console.log(this.selected);
     }
   },
   methods: {
@@ -76,7 +68,6 @@ export default {
         isAdd: true,
         quantity: 1
       };
-      console.log(data);
       this.updateCart(data);
     },
     removeFromCart(id) {

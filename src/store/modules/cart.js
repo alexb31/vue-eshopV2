@@ -22,7 +22,7 @@ const mutations = {
   REMOVE_CART_ITEM(state, product) {
     // console.log(state.cartItemList.find(element));
     const record = state.cartItemList.find(element => element.id == product.id);
-    console.log(record)
+    console.log("record", record)
     state.cartItemList.splice(state.cartItemList.indexOf(record), 1);
   }
 }

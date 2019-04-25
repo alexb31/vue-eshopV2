@@ -2,14 +2,7 @@
   <v-container id="productList">
     <v-container grid-list-md text-xs-center>
       <v-layout>
-        <div class="box" v-for="product in cartItemList" :key="product.id">
-          <router-link :to="'/product/' + product.id">
-            <v-img :src="product.img" aspect-ratio="2.75"></v-img>
-          </router-link>
-          <p>{{product.title}} {{product.quantity > 0 ? ` - Quantity: ${product.quantity}` : ''}}</p>
-          <p>{{product.price * product.quantity}}&euro;</p>
-          <v-btn @click="removeFromCart" color="error">{{removeProductLabel}}</v-btn>
-        </div>
+        <app-cart-item v-for="product in cartItemList" :product="product" :key="product.id"></app-cart-item>
         <div v-if="cartItemList.length === 0">
           <p>{{cartEmptyLabel}}</p>
         </div>
@@ -24,20 +17,20 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import CartItem from "../CartItem/CartItem";
 
 export default {
   data() {
     return {
       cartEmptyLabel: "Your cart is empty",
-      removeProductLabel: "Remove The Product",
       checkoutLabel: "Checkout"
     };
   },
+  components: {
+    appCartItem: CartItem
+  },
   computed: {
     ...mapGetters(["products", "cartItemList"]),
-    products() {
-      return this.$store.getters.productsAdded;
-    },
     // priceTotal() {
     //   let totalProducts = this.products.length;
     //   let productsAdded = this.$store.getters.productsAdded;
@@ -62,15 +55,6 @@ export default {
         res += product.price * product.quantity;
       });
       return res;
-    }
-  },
-  methods: {
-    ...mapActions(["removeItemInCart"]),
-    removeFromCart() {
-      let vm = this;
-      this.removeItemInCart({
-        product: vm.product
-      });
     }
   }
 };

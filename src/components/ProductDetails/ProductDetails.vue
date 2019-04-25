@@ -20,7 +20,8 @@
         <v-btn
           color="success"
           v-if="!product.isAddedToCart"
-          @click="addToCart(product.id)"
+          @click="addToCart"
+          :disabled="product.quantity === 0"
         >{{ addToCartLabel }}</v-btn>
         <v-btn
           color="error"
@@ -76,7 +77,6 @@ export default {
         this.product.quantity = this.product.quantityMax;
       } else {
         this.updateCart(data);
-        return quantityMax;
       }
     },
     increment() {
