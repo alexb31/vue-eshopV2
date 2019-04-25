@@ -35,5 +35,11 @@ new Vue({
 function authStatusChange(loggedIn, user) {
   if (store) {
     store.commit('AUTH_STATUS_CHANGE');
+    if (user) {
+      store.dispatch('getShoppingCart', {
+        uid: user.uid,
+        currentCart: store.getters.cartItemList
+      });
+    }
   }
 }

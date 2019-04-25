@@ -38,6 +38,23 @@ export function listenToProductList({
   });
 }
 
+export function getShoppingCart({
+  commit
+}, {
+  uid,
+  currentCart
+}) {
+  if (uid) {
+    return ref.child("cart/" + uid).once('value').then((cart) => {
+      if (cart.val() && (!currentCart || currentCart.length == 0)) {
+        commit('SET_CART', cart.val())
+      }
+    });
+  } else {
+    console.log("USER HAS NOT LOGGED IN");
+  }
+}
+
 export const registerWithEmail = (_, {
   email,
   password
@@ -56,4 +73,17 @@ export const logout = ({
   commit
 }) => {
   return firebaseAuth().signOut()
+}
+
+export function saveToTransaction(_, {
+  uid,
+  cartItemList
+}) {
+  let newTransactionKey = ref.child("transactions").push().key;
+  var newTransaction = {};
+  newTransaction[
+    "/transactions/" + uid + "/" + newTransactionKey
+  ] = cartItemList;
+  console.log(newTransaction);
+  return ref.update(newTransaction);
 }

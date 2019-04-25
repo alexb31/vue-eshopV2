@@ -22,10 +22,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["listenToProductList"])
+    ...mapActions(["listenToProductList", "getShoppingCart"])
   },
   created() {
+    let uid = this.$store.getters.currentUser.uid;
     this.listenToProductList();
+    this.getShoppingCart({
+      uid,
+      currentCart: this.$store.getters.cartItemList
+    });
   }
 };
 </script>

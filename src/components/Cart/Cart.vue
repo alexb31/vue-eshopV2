@@ -8,7 +8,7 @@
         </div>
         <div v-else>
           <div>Total: {{priceTotal}}&euro;</div>
-          <v-btn color="info" to="/checkout">{{checkoutLabel}}</v-btn>
+          <v-btn color="info" @click="checkout">{{checkoutLabel}}</v-btn>
         </div>
       </v-layout>
     </v-container>
@@ -29,26 +29,33 @@ export default {
   components: {
     appCartItem: CartItem
   },
+  methods: {
+    ...mapActions(["saveToTransaction"]),
+    checkValidCart(itemList, prodList) {
+      let isValid = true;
+      return isValid;
+    },
+    checkout() {
+      if (this.isLoggedIn) {
+        if (!this.cartItemList || this.cartItemList.length == 0) {
+          alert("Cart Empty");
+        }
+        const isValid = this.checkValidCart(this.cartItemList, this.products);
+        if (isValid) {
+          this.saveToTransaction({
+            cartItemList: this.cartItemList,
+            uid: this.currentUser.uid
+          }).then(() => {
+            this.$router.push("/checkout");
+          });
+        }
+      } else {
+        alert("You must be connected");
+      }
+    }
+  },
   computed: {
-    ...mapGetters(["products", "cartItemList"]),
-    // priceTotal() {
-    //   let totalProducts = this.products.length;
-    //   let productsAdded = this.$store.getters.productsAdded;
-    //   let pricesArray = [];
-    //   let finalPrice = "";
-    //   let quantity = 1;
-
-    //   productsAdded.forEach(product => {
-    //     if (product.quantity >= 1) {
-    //       quantity = product.quantity;
-    //     }
-    //     pricesArray.push(product.price * quantity);
-    //   });
-
-    //   finalPrice = pricesArray.reduce((a, b) => a + b, 0);
-    //   console.log(finalPrice);
-    //   return finalPrice;
-    // }
+    ...mapGetters(["products", "cartItemList", "isLoggedIn", "currentUser"]),
     priceTotal() {
       let res = 0;
       this.cartItemList.map(product => {

@@ -6,7 +6,6 @@ const mutations = {
   UPDATE_CART(state, {
     product,
     quantity,
-    quantityMax,
     isAdd
   }) {
     const record = state.cartItemList.find(element => element.id == product.id);
@@ -20,7 +19,6 @@ const mutations = {
       state.cartItemList.push({
         ...product,
         quantity,
-        quantityMax
       });
     }
   },
